@@ -4,7 +4,8 @@
   "description": "everything javascript should have",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "./docs/build.js"
   },
   "repository": {
     "type": "git",
