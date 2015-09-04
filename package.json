@@ -1,0 +1,23 @@
+{
+  "name": "shouldhave",
+  "version": "0.0.1",
+  "description": "everything javascript should have",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deadlyicon/shouldhave.js.git"
+  },
+  "author": "Jared Grippe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deadlyicon/shouldhave.js/issues"
+  },
+  "homepage": "https://github.com/deadlyicon/shouldhave.js#readme",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.2.5"
+  }
+}
