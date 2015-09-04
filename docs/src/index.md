@@ -1,3 +1,7 @@
 ---
-template: index.html
+template: layout.jade
 ---
+
+
+
+lolz

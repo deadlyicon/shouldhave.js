@@ -1,14 +1,15 @@
 {
-  "source": "docs/src",
+  "source": "./docs/src",
   "destination": "gh-pages",
   "metadata": {
-    "title": "My Blog",
-    "description": "My second, super-cool blog."
+    "title": "shouldhave.js",
+    "description": "Everything JavaScript should have :D"
   },
   "plugins": {
     "metalsmith-markdown": {},
     "metalsmith-templates": {
-      "engine": "jade"
+      "engine": "jade",
+      "directory": "./docs/templates"
     }
   }
 }
