@@ -18,6 +18,9 @@
   "homepage": "https://github.com/deadlyicon/shouldhave.js#readme",
   "devDependencies": {
     "expect.js": "^0.3.1",
+    "metalsmith": "^2.0.1",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-templates": "^0.7.0",
     "mocha": "^2.2.5"
   }
 }
