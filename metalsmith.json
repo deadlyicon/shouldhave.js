@@ -1,6 +1,10 @@
 {
   "source": "./docs",
   "destination": "gh-pages",
+  "clean": false,
+  "ignore": [
+    "_templates/*"
+  ],
   "metadata": {
     "title": "shouldhave.js",
     "description": "Everything JavaScript should have :D"
