@@ -1,4 +1,0 @@
-[submodule "master"]
-	path = master
-	url = https://github.com/deadlyicon/shouldhave.js.git
-	branch = master
