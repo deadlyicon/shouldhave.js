@@ -1,5 +1,5 @@
 {
-  "source": "./docs/src",
+  "source": "./docs",
   "destination": "gh-pages",
   "metadata": {
     "title": "shouldhave.js",
@@ -7,9 +7,8 @@
   },
   "plugins": {
     "metalsmith-ignore": [
-      "./docs/templates/*",
-      "./docs/styles/*",
-    ]
+      "_templates/*"
+    ],
     "metalsmith-sass": {
       "outputStyle": "expanded"
     },
@@ -17,7 +16,7 @@
     "metalsmith-code-highlight": {},
     "metalsmith-templates": {
       "engine": "jade",
-      "directory": "./docs/templates"
+      "directory": "./docs/_templates"
     }
   }
 }
