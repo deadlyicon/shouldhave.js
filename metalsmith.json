@@ -1,4 +1,6 @@
 {
+  "source": "docs/src",
+  "destination": "gh-pages",
   "metadata": {
     "title": "My Blog",
     "description": "My second, super-cool blog."
