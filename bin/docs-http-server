@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+(sleep 1 && open http://0.0.0.0:8080/shouldhave.js)
+http-server ./_docs_server/ -o /shouldhave.js
