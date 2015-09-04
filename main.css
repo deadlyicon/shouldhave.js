@@ -1,0 +1,5 @@
+code[class^="lang-"] {
+  display: block;
+  white-space: pre;
+  background-color: darkgrey;
+}
