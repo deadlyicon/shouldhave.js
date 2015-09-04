@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    title= title
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    meta(name='description', content=description)
+    link(rel="stylesheet" href=pathRoot+"/main.css")
+  body
+    .container-fluid
+      include _header.jade
+      if contents
+        != contents
+      else
+        block content
+      include _footer.jade
+    script(src=pathRoot+"/jquery.js")
+    script(src=pathRoot+"/bootstrap.js")

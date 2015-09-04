@@ -1,0 +1,21 @@
+{
+  "name": "shouldhave",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/deadlyicon/shouldhave.js",
+  "authors": [
+    "Jared Grippe <jared@deadlyicon.com>"
+  ],
+  "description": "Everything JavaScript should have :D",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}

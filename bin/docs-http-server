@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+(sleep 1 && open http://deadlyicon.github.dev/shouldhave.js)
+http-server ./_docs_server -a 127.0.0.1 -p 3027
