@@ -6,6 +6,13 @@
     "description": "Everything JavaScript should have :D"
   },
   "plugins": {
+    "metalsmith-ignore": [
+      "./docs/templates/*",
+      "./docs/styles/*",
+    ]
+    "metalsmith-sass": {
+      "outputStyle": "expanded"
+    },
     "metalsmith-markdown": {},
     "metalsmith-code-highlight": {},
     "metalsmith-templates": {
