@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/deadlyicon/shouldhave.js#readme",
   "devDependencies": {
+    "async": "^1.4.2",
     "expect.js": "^0.3.1",
     "jade": "^1.11.0",
     "metalsmith": "^2.0.1",
     "metalsmith-code-highlight": "0.0.3",
     "metalsmith-ignore": "^0.1.2",
+    "metalsmith-jade": "^2.0.2",
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-sass": "^1.3.0",
     "metalsmith-templates": "^0.7.0",

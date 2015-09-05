@@ -1,5 +1,5 @@
 ---
-template: layout.jade
+layout: _layout.jade
 ---
 
 
