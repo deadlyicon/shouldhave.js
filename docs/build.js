@@ -93,18 +93,19 @@ var metalsmith = Metalsmith(ROOT)
   .use(markdown())
 
   .use(function(files, metalsmith, done){
-    // console.log('-->', Object.keys(files));
-    var matchingFiles = [];
-    Object.keys(files).forEach(function(fileName){
-      console.log(fileName);
 
+    var loadSourceCode = function(fileName, done){
       var sourceFileName = docFileNameToSrcFileName(fileName)
-      if (!sourceFileName) return;
-      var fileMetaData = metaData.files[sourceFileName];
-      console.log(sourceFileName, fileMetaData);
-      // return metaData.fileNames.indexOf(fileName) != -1;
-    });
-    done()
+      if (!sourceFileName) return done();
+      var fileData = files[fileName];
+      loadSourceFile(sourceFileName, function(contents){
+        fileData.contents = fileData.contents.toString().replace('{{source}}', contents.toString())
+        done();
+      });
+    };
+
+    asyncEach(Object.keys(files), loadSourceCode, done);
+    // done()
   })
   .use(layout)
   .use(codeHighlight())
@@ -123,18 +124,17 @@ var build = function(){
 
 
 
-var loadFileContent = function(fileName, done){
-  var file = {name: fileName};
-  metaData.files[fileName] = file;
-  fs.readFile(ROOT+'/src/'+fileName, function(error, contents){
-    file.contents = contents;
-    done();
+var loadSourceFile = function(fileName, callback){
+  fs.readFile(ROOT+'/src/'+fileName, function(error, source){
+    if (error) throw error;
+    callback(source)
   });
 };
 
 fs.readdir(ROOT+'/src', function(error, fileNames){
   metaData.fileNames = fileNames;
   metaData.files = {};
-  asyncEach(fileNames, loadFileContent, build);
+  // asyncEach(fileNames, loadFileContent, build);
+  build();
 });
 
