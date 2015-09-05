@@ -100,7 +100,8 @@ var metalsmith = Metalsmith(ROOT)
 
       var sourceFileName = docFileNameToSrcFileName(fileName)
       if (!sourceFileName) return;
-      console.log(sourceFileName)
+      var fileMetaData = metaData.files[sourceFileName];
+      console.log(sourceFileName, fileMetaData);
       // return metaData.fileNames.indexOf(fileName) != -1;
     });
     done()
