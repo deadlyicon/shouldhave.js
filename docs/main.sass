@@ -2,11 +2,36 @@
 
 @import ./constants
 
+a
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+
 body
   color: $darkblue
-
 
 code[class^="lang-"]
   display: block
   white-space: pre
   background-color: darkgrey
+
+.columns
+  display: flex
+  align-items: stretch
+  align-content: stretch
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: flex-start
+
+.inline-columns
+  @extend .columns
+  display: inline-flex
+
+header
+  padding: 0.25em 0.5em
+  background: black
+  color: white
+
+.logo
+  color: inherit

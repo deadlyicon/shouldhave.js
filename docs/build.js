@@ -25,6 +25,7 @@ var jadeOptions = {
 }
 
 var jadeLocals = {
+  pathRoot: '/shouldhave.js',
   files: [] // set near bottom of this file
 };
 
