@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#endsWith
 
-# String#endsWith.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#endsWith.js")
+```
 
 ```js
 {{source}}

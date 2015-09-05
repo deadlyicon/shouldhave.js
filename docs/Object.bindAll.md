@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Object.bindAll
 
-# Object.bindAll.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Object.bindAll.js")
+```
 
 ```js
 {{source}}

@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#isEmpty
 
-# Array#isEmpty.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#isEmpty.js")
+```
 
 ```js
 {{source}}

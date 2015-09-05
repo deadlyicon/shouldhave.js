@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#reduce
 
-# Array#reduce.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#reduce.js")
+```
 
 ```js
 {{source}}

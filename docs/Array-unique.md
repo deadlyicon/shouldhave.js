@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#unique
 
-# Array#unique.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#unique.js")
+```
 
 ```js
 {{source}}

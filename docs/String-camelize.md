@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#camelize
 
-# String#camelize.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#camelize.js")
+```
 
 ```js
 {{source}}

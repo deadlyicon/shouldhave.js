@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#split
 
-# String#split.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#split.js")
+```
 
 ```js
 {{source}}

@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Function#defer
 
-# Function#defer.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Function#defer.js")
+```
 
 ```js
 {{source}}

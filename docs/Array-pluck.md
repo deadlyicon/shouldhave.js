@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#pluck
 
-# Array#pluck.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#pluck.js")
+```
 
 ```js
 {{source}}

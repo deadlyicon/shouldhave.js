@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array.wrap
 
-# Array.wrap.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array.wrap.js")
+```
 
 ```js
 {{source}}

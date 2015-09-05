@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# isArray
 
-# isArray.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/isArray.js")
+```
 
 ```js
 {{source}}

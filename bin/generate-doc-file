@@ -5,15 +5,23 @@ path = require 'path'
 
 ROOT = path.resolve(__dirname, '../')
 
-generate = (name) ->
+generate = (niceName, sourceFileName) ->
   """
   ---
   layout: _layout.jade
   ---
 
+  # #{niceName}
 
-  # #{name}
+  ## Instillation
 
+  ```sh
+  npm install --save shouldhave
+  ```
+
+  ```js
+  require("shouldhave/#{sourceFileName}")
+  ```
 
   ```js
   {{source}}
@@ -29,7 +37,8 @@ fs.readdir "#{ROOT}/src", (error, fileNames) ->
 
     docFileName = sourceFileName.replace('#','-').replace(/\.js$/,'.md')
     console.log("#{ROOT}/docs/#{docFileName}")
-    fs.writeFile "#{ROOT}/docs/#{docFileName}", generate(sourceFileName), (error) ->
+    niceName = sourceFileName.replace(/\.js/,'')
+    fs.writeFile "#{ROOT}/docs/#{docFileName}", generate(niceName, sourceFileName), (error) ->
       throw error if error?
 
 

@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Object.values
 
-# Object.values.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Object.values.js")
+```
 
 ```js
 {{source}}

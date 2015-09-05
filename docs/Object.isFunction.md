@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Object.isFunction
 
-# Object.isFunction.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Object.isFunction.js")
+```
 
 ```js
 {{source}}

@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# isString
 
-# isString.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/isString.js")
+```
 
 ```js
 {{source}}

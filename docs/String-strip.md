@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#strip
 
-# String#strip.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#strip.js")
+```
 
 ```js
 {{source}}

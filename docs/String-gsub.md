@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#gsub
 
-# String#gsub.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#gsub.js")
+```
 
 ```js
 {{source}}

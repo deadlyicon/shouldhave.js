@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# toArray
 
-# toArray.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/toArray.js")
+```
 
 ```js
 {{source}}

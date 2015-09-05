@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# isObject
 
-# isObject.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/isObject.js")
+```
 
 ```js
 {{source}}

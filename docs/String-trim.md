@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#trim
 
-# String#trim.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#trim.js")
+```
 
 ```js
 {{source}}

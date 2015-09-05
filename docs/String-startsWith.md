@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#startsWith
 
-# String#startsWith.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#startsWith.js")
+```
 
 ```js
 {{source}}

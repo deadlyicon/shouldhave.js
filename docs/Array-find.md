@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#find
 
-# Array#find.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#find.js")
+```
 
 ```js
 {{source}}

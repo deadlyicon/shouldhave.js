@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Object.assign
 
-# Object.assign.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Object.assign.js")
+```
 
 ```js
 {{source}}

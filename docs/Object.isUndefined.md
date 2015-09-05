@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Object.isUndefined
 
-# Object.isUndefined.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Object.isUndefined.js")
+```
 
 ```js
 {{source}}

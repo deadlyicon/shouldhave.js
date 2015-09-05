@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#remove
 
-# Array#remove.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#remove.js")
+```
 
 ```js
 {{source}}

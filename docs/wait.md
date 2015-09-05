@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# wait
 
-# wait.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/wait.js")
+```
 
 ```js
 {{source}}

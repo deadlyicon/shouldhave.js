@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# String#scan
 
-# String#scan.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/String#scan.js")
+```
 
 ```js
 {{source}}

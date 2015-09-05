@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#filter
 
-# Array#filter.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#filter.js")
+```
 
 ```js
 {{source}}

@@ -2,10 +2,8 @@ extends _layout.jade
 
 block content
 
-  div
-    textarea= fileNames
 
-  p
-    a(href="/shouldhave.js/about.html") About
-  p
-    a(href="/shouldhave.js/Array-find.html") Array#find
+  for file in fileNames
+    - file = file.replace(/\.js$/,'')
+    .col-md-2
+      a(href=pathRoot+'/'+file.replace('#','-')+'.html')=file

@@ -1,13 +1,24 @@
 nav.navbar.navbar-dark.bg-inverse
+
   a.navbar-brand(href=pathRoot) shouldhave.js
+
   ul.nav.navbar-nav
-    li.nav-item.active
+    li.nav-item
+      .nav-link Everything JavaScript should have.
+
+
+  ul.nav.navbar-nav.pull-right
+    - className = false ? "active" : ''
+    li.nav-item(class=className)
       a.nav-link(href=pathRoot+'/about')
         = 'About'
         span.sr-only (current)
 
-    li.nav-item
-      a.nav-link(href=pathRoot+'/docs') Docs
 
-    li.nav-item
+    //- - className = false ? "active" : ''
+    //- li.nav-item(class=className)
+    //-   a.nav-link(href=pathRoot+'/docs') Docs
+
+    - className = false ? "active" : ''
+    li.nav-item(class=className)
       a.nav-link(href=githubUrl) Code

@@ -2,9 +2,17 @@
 layout: _layout.jade
 ---
 
+# Array#excludes
 
-# Array#excludes.js
+## Instillation
 
+```sh
+npm install --save shouldhave
+```
+
+```js
+require("shouldhave/Array#excludes.js")
+```
 
 ```js
 {{source}}
