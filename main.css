@@ -6400,3 +6400,11 @@ code[class^="lang-"] {
   color: white;
   border-radius: 5px;
 }
+
+nav.navbar {
+  margin: 1em 0;
+}
+
+h1 {
+  margin-bottom: 0.5em;
+}
