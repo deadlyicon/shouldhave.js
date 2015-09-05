@@ -2,8 +2,7 @@ extends ../_layout.jade
 
 block content
 
-  h1 Docs! :D
   for file in fileNames
     - file = file.replace(/\.js$/,'')
-    div
+    .col-md-2
       a(href=pathRoot+'/'+file.replace('#','-')+'.html')=file

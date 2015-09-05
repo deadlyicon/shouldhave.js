@@ -8,16 +8,14 @@ nav.navbar.navbar-dark.bg-inverse
 
 
   ul.nav.navbar-nav.pull-right
-    - className = false ? "active" : ''
-    li.nav-item(class=className)
-      a.nav-link(href=pathRoot+'/about')
-        = 'About'
-        span.sr-only (current)
-
-
     //- - className = false ? "active" : ''
     //- li.nav-item(class=className)
-    //-   a.nav-link(href=pathRoot+'/docs') Docs
+    //-   a.nav-link(href=pathRoot+'/about')
+    //-     = 'About'
+
+    - className = false ? "active" : ''
+    li.nav-item(class=className)
+      a.nav-link(href=pathRoot+'/docs') Docs
 
     - className = false ? "active" : ''
     li.nav-item(class=className)
