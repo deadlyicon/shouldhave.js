@@ -13,13 +13,16 @@ var sass          = require('metalsmith-sass');
 var codeHighlight = require('metalsmith-code-highlight');
 var jade          = require('metalsmith-jade')
 var compileJade   = require('jade').compile
-// var templates     = require('metalsmith-templates');
 
 var ROOT = process.cwd()
 
 /**
  * Build.
  */
+
+var jadeOptions = {
+  pretty: false
+}
 
 var jadeLocals = {
   files: [] // set near bottom of this file
@@ -31,32 +34,22 @@ var layout = function(files, metalsmith, done){
     var data = files[name];
     var layout = data.layout;
     if (!layout) return done();
-    layout = path.join(ROOT, metalsmith._source, layout)
+    layout = path.join(metalsmith.source(), layout)
     var locals = Object.assign({}, jadeLocals, data);
     delete locals.layout
     delete locals.stats
     locals.contents = data.contents.toString()
-    // console.log(name, layout, locals)
+
+    var options = Object.assign({}, jadeOptions, {
+      filename: layout
+    })
 
     fs.readFile(layout, function(error, layoutContents){
-      data.contents = compileJade(layoutContents.toString(), {})(locals)
-      files[name] = data
-      done()
+
+      data.contents = compileJade(layoutContents.toString(), options)(locals)
+      files[name] = data;
+      done();
     });
-
-    // read ROOT+'/docs/'+data.layout
-
-    // // render
-    // var contents = compileJade(data.contents.toString(), opts)(locals)
-
-    // // convert to a buffer
-    // data.contents = new Buffer(contents)
-
-    // // remove from global files object
-    // delete files[name]
-
-    // // assign the newly created file
-    // files[name] = data
   };
   asyncEach(Object.keys(files), wrapInLayout, done);
 };
@@ -71,15 +64,16 @@ var metalsmith = Metalsmith(ROOT)
   })
   .ignore([
     "build.js",
+    "_*.*",
+    "_*.sass",
     "_*.jade"
   ])
   .use(sass({
     "outputStyle": "expanded"
   }))
-  .use(jade({
-    pretty: false,
-    locals: jadeLocals
-  }))
+  .use(jade(
+    Object.assign({}, jadeOptions, {locals: jadeLocals})
+  ))
   .use(markdown())
   .use(layout)
   .use(codeHighlight())
@@ -100,5 +94,5 @@ var build = function(){
 fs.readdir(ROOT+'/src', function(error, files){
   jadeLocals.files = files
   build()
-})
+});
 
