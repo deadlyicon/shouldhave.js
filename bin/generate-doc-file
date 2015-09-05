@@ -1,0 +1,39 @@
+#!/usr/bin/env coffee
+
+fs = require 'fs'
+path = require 'path'
+
+ROOT = path.resolve(__dirname, '../')
+
+generate = (name) ->
+  """
+  ---
+  layout: _layout.jade
+  ---
+
+
+  # #{name}
+
+
+  ```js
+  {{source}}
+  ```
+  """
+
+
+console.log generate('Array#find')
+
+
+
+console.log(ROOT);
+
+fs.readdir "#{ROOT}/src", (error, fileNames) ->
+  throw error if error?
+  fileNames.forEach (sourceFileName) ->
+    [p1,p2,p3] = fileName.match(/^(\w+)(#|\.)(\w+).js$/)
+    name = "#{p1}#{p2}#{p3}"
+    docFileName = "#{p1}#{if p2 == '#' then '-' else '.'}#{p3}.html"
+    fs.writeFile "#{ROOT}/docs/#{docFileName}", generate(name), (error) ->
+      throw error if error?
+
+
