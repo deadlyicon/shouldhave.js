@@ -392,6 +392,10 @@ th {
   padding: 0;
 }
 
+body {
+  color: blue;
+}
+
 code[class^="lang-"] {
   display: block;
   white-space: pre;
