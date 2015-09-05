@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="array-filter-js">Array#filter.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.prototype.filter) {
+  <span class="hljs-built_in">Array</span>.prototype.filter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fun<span class="hljs-comment">/*, thisArg*/</span></span>) </span>{
+<span class="hljs-pi">    'use strict'</span>;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> || <span class="hljs-keyword">this</span> === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>();
+    }
+
+    <span class="hljs-keyword">var</span> t = <span class="hljs-built_in">Object</span>(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">var</span> len = t.length &gt;&gt;&gt; <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fun !== <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>();
+    }
+
+    <span class="hljs-keyword">var</span> res = [];
+    <span class="hljs-keyword">var</span> thisArg = <span class="hljs-built_in">arguments</span>.length &gt;= <span class="hljs-number">2</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+      <span class="hljs-keyword">if</span> (i <span class="hljs-keyword">in</span> t) {
+        <span class="hljs-keyword">var</span> val = t[i];
+
+        <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> Technically this should Object.defineProperty at</span>
+        <span class="hljs-comment">//       the next index, as push can be affected by</span>
+        <span class="hljs-comment">//       properties on Object.prototype and Array.prototype.</span>
+        <span class="hljs-comment">//       But that method's new, and collisions should be</span>
+        <span class="hljs-comment">//       rare, so use the more-compatible alternative.</span>
+        <span class="hljs-keyword">if</span> (fun.call(thisArg, val, i, t)) {
+          res.push(val);
+        }
+      }
+    }
+
+    <span class="hljs-keyword">return</span> res;
+  };
+}
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="string-substr-js">String#substr.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// ECMA-262, 3rd B.2.3</span>
+<span class="hljs-comment">// Note an ECMAScript standart, although ECMAScript 3rd Edition has a</span>
+<span class="hljs-comment">// non-normative section suggesting uniform semantics and it should be</span>
+<span class="hljs-comment">// normalized across all browsers</span>
+<span class="hljs-comment">// [bugfix, IE lt 9] IE &lt; 9 substr() with negative value not working in IE</span>
+<span class="hljs-keyword">if</span>(<span class="hljs-string">""</span>.substr &amp;&amp; <span class="hljs-string">"0b"</span>.substr(-<span class="hljs-number">1</span>) !== <span class="hljs-string">"b"</span>) {
+  STDLIB.string_substr = <span class="hljs-built_in">String</span>.prototype.substr;
+  <span class="hljs-comment">/**
+   *  Get the substring of a string
+   *  @param  {integer}  start   where to start the substring
+   *  @param  {integer}  length  how many characters to return
+   *  @return {string}
+   */</span>
+  <span class="hljs-built_in">String</span>.prototype.substr = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">start, length</span>) </span>{
+    <span class="hljs-keyword">return</span> STDLIB.string_substr.call(
+      <span class="hljs-keyword">this</span>,
+      start &lt; <span class="hljs-number">0</span> ? ((start = <span class="hljs-keyword">this</span>.length + start) &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">0</span> : start) : start,
+      length
+    );
+  }
+}
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

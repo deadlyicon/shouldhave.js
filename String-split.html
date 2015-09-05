@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="string-split-js">String#split.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5 15.5.4.14</span>
+<span class="hljs-comment">// http://es5.github.com/#x15.5.4.14</span>
+
+<span class="hljs-comment">// [bugfix, IE lt 9, firefox 4, Konqueror, Opera, obscure browsers]</span>
+<span class="hljs-comment">// Many browsers do not split properly with regular expressions or they</span>
+<span class="hljs-comment">// do not perform the split correctly under obscure conditions.</span>
+<span class="hljs-comment">// See http://blog.stevenlevithan.com/archives/cross-browser-split</span>
+<span class="hljs-comment">// I've tested in many browsers and this seems to cover the deviant ones:</span>
+<span class="hljs-comment">//  'ab'.split(/(?:ab)*/) should be ["", ""], not [""]</span>
+<span class="hljs-comment">//  '.'.split(/(.?)(.?)/) should be ["", ".", "", ""], not ["", ""]</span>
+<span class="hljs-comment">//  'tesst'.split(/(s)*/) should be ["t", undefined, "e", "s", "t"], not</span>
+<span class="hljs-comment">//     [undefined, "t", undefined, "e", ...]</span>
+<span class="hljs-comment">//  ''.split(/.?/) should be [], not [""]</span>
+<span class="hljs-comment">//  '.'.split(/()()/) should be ["."], not ["", "", "."]</span>
+
+!<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> string_split = <span class="hljs-built_in">String</span>.prototype.split;
+  <span class="hljs-keyword">if</span> (
+    <span class="hljs-string">'ab'</span>.split(<span class="hljs-regexp">/(?:ab)*/</span>).length !== <span class="hljs-number">2</span> ||
+    <span class="hljs-string">'.'</span>.split(<span class="hljs-regexp">/(.?)(.?)/</span>).length !== <span class="hljs-number">4</span> ||
+    <span class="hljs-string">'tesst'</span>.split(<span class="hljs-regexp">/(s)*/</span>)[<span class="hljs-number">1</span>] === <span class="hljs-string">"t"</span> ||
+    <span class="hljs-string">''</span>.split(<span class="hljs-regexp">/.?/</span>).length === <span class="hljs-number">0</span> ||
+    <span class="hljs-string">'.'</span>.split(<span class="hljs-regexp">/()()/</span>).length &gt; <span class="hljs-number">1</span>
+  ) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> compliantExecNpcg = <span class="hljs-regexp">/()??/</span>.exec(<span class="hljs-string">""</span>)[<span class="hljs-number">1</span>] === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// NPCG: nonparticipating capturing group</span>
+
+      <span class="hljs-built_in">String</span>.prototype.split = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">separator, limit</span>) </span>{
+        <span class="hljs-keyword">var</span> string = <span class="hljs-keyword">this</span>;
+        <span class="hljs-keyword">if</span> (separator === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> &amp;&amp; limit === <span class="hljs-number">0</span>)
+          <span class="hljs-keyword">return</span> [];
+
+        <span class="hljs-comment">// If `separator` is not a regex, use native split</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.toString.call(separator) !== <span class="hljs-string">"[object RegExp]"</span>) {
+          <span class="hljs-keyword">return</span> string_split.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+        }
+
+        <span class="hljs-keyword">var</span> output = [],
+          flags = (separator.ignoreCase ? <span class="hljs-string">"i"</span> : <span class="hljs-string">""</span>) +
+              (separator.multiline  ? <span class="hljs-string">"m"</span> : <span class="hljs-string">""</span>) +
+              (separator.extended   ? <span class="hljs-string">"x"</span> : <span class="hljs-string">""</span>) + <span class="hljs-comment">// Proposed for ES6</span>
+              (separator.sticky   ? <span class="hljs-string">"y"</span> : <span class="hljs-string">""</span>), <span class="hljs-comment">// Firefox 3+</span>
+          lastLastIndex = <span class="hljs-number">0</span>,
+          <span class="hljs-comment">// Make `global` and avoid `lastIndex` issues by working with a copy</span>
+          separator = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(separator.source, flags + <span class="hljs-string">"g"</span>),
+          separator2, match, lastIndex, lastLength;
+        string += <span class="hljs-string">""</span>; <span class="hljs-comment">// Type-convert</span>
+        <span class="hljs-keyword">if</span> (!compliantExecNpcg) {
+          <span class="hljs-comment">// Doesn't need flags gy, but they don't hurt</span>
+          separator2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"^"</span> + separator.source + <span class="hljs-string">"$(?!\\s)"</span>, flags);
+        }
+        <span class="hljs-comment">/* Values for `limit`, per the spec:
+         * If undefined: 4294967295 // Math.pow(2, 32) - 1
+         * If 0, Infinity, or NaN: 0
+         * If positive number: limit = Math.floor(limit); if (limit &gt; 4294967295) limit -= 4294967296;
+         * If negative number: 4294967296 - Math.floor(Math.abs(limit))
+         * If other: Type-convert, then use the above rules
+         */</span>
+        limit = limit === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ?
+          -<span class="hljs-number">1</span> &gt;&gt;&gt; <span class="hljs-number">0</span> : <span class="hljs-comment">// Math.pow(2, 32) - 1</span>
+          limit &gt;&gt;&gt; <span class="hljs-number">0</span>; <span class="hljs-comment">// ToUint32(limit)</span>
+        <span class="hljs-keyword">while</span> (match = separator.exec(string)) {
+          <span class="hljs-comment">// `separator.lastIndex` is not reliable cross-browser</span>
+          lastIndex = match.index + match[<span class="hljs-number">0</span>].length;
+          <span class="hljs-keyword">if</span> (lastIndex &gt; lastLastIndex) {
+            output.push(string.slice(lastLastIndex, match.index));
+            <span class="hljs-comment">// Fix browsers whose `exec` methods don't consistently return `undefined` for</span>
+            <span class="hljs-comment">// nonparticipating capturing groups</span>
+            <span class="hljs-keyword">if</span> (!compliantExecNpcg &amp;&amp; match.length &gt; <span class="hljs-number">1</span>) {
+              match[<span class="hljs-number">0</span>].replace(separator2, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">arguments</span>.length - <span class="hljs-number">2</span>; i++) {
+                  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>[i] === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) {
+                    match[i] = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+                  }
+                }
+              });
+            }
+            <span class="hljs-keyword">if</span> (match.length &gt; <span class="hljs-number">1</span> &amp;&amp; match.index &lt; string.length) {
+              <span class="hljs-built_in">Array</span>.prototype.push.apply(output, match.slice(<span class="hljs-number">1</span>));
+            }
+            lastLength = match[<span class="hljs-number">0</span>].length;
+            lastLastIndex = lastIndex;
+            <span class="hljs-keyword">if</span> (output.length &gt;= limit) {
+              <span class="hljs-keyword">break</span>;
+            }
+          }
+          <span class="hljs-keyword">if</span> (separator.lastIndex === match.index) {
+            separator.lastIndex++; <span class="hljs-comment">// Avoid an infinite loop</span>
+          }
+        }
+        <span class="hljs-keyword">if</span> (lastLastIndex === string.length) {
+          <span class="hljs-keyword">if</span> (lastLength || !separator.test(<span class="hljs-string">""</span>)) {
+            output.push(<span class="hljs-string">""</span>);
+          }
+        } <span class="hljs-keyword">else</span> {
+          output.push(string.slice(lastLastIndex));
+        }
+        <span class="hljs-keyword">return</span> output.length &gt; limit ? output.slice(<span class="hljs-number">0</span>, limit) : output;
+      };
+    }());
+
+  <span class="hljs-comment">// [bugfix, chrome]</span>
+  <span class="hljs-comment">// If separator is undefined, then the result array contains just one String,</span>
+  <span class="hljs-comment">// which is the this value (converted to a String). If limit is not undefined,</span>
+  <span class="hljs-comment">// then the output array is truncated so that it contains no more than limit</span>
+  <span class="hljs-comment">// elements.</span>
+  <span class="hljs-comment">// "0".split(undefined, 0) -&gt; []</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"0"</span>.split(<span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-number">0</span>).length) {
+    <span class="hljs-built_in">String</span>.prototype.split = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">separator, limit</span>) </span>{
+      <span class="hljs-keyword">if</span> (separator === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> &amp;&amp; limit === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> [];
+      <span class="hljs-keyword">return</span> string_split.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
+    }
+  }
+
+}();
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

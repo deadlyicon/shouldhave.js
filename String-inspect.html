@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="string-inspect-js">String#inspect.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">/** related to: Object.inspect
+ *  String#inspect() -&gt; String
+ *
+ *  Returns a debug-oriented version of the string (i.e. wrapped in single or
+ *  double quotes, with backslashes and quotes escaped).
+ *
+ *  For more information on `inspect` methods, see [[Object.inspect]].
+ *
+ *  #### Examples
+ *
+ *      'I\'m so happy.'.inspect();
+ *      // -&gt; '\'I\\\'m so happy.\''
+ *      // (displayed as 'I\'m so happy.' in an alert dialog or the console)
+ *
+ *      'I\'m so happy.'.inspect(true);
+ *      // -&gt; '"I'm so happy."'
+ *      // (displayed as "I'm so happy." in an alert dialog or the console)
+**/</span>
+<span class="hljs-built_in">String</span>.prototype.inspect = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> specialChar = {
+    <span class="hljs-string">'\b'</span>: <span class="hljs-string">'\\b'</span>,
+    <span class="hljs-string">'\t'</span>: <span class="hljs-string">'\\t'</span>,
+    <span class="hljs-string">'\n'</span>: <span class="hljs-string">'\\n'</span>,
+    <span class="hljs-string">'\f'</span>: <span class="hljs-string">'\\f'</span>,
+    <span class="hljs-string">'\r'</span>: <span class="hljs-string">'\\r'</span>,
+    <span class="hljs-string">'\\'</span>: <span class="hljs-string">'\\\\'</span>
+  }
+
+  <span class="hljs-keyword">var</span> escapedString = <span class="hljs-keyword">this</span>.replace(<span class="hljs-regexp">/[\x00-\x1f\\]/g</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">character</span>) </span>{
+    <span class="hljs-keyword">if</span> (character <span class="hljs-keyword">in</span> specialChar) <span class="hljs-keyword">return</span> specialChar[character];
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'\\u00'</span> + character.charCodeAt().toPaddedString(<span class="hljs-number">2</span>, <span class="hljs-number">16</span>);
+  });
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'"'</span> + escapedString.replace(<span class="hljs-regexp">/"/g</span>, <span class="hljs-string">'\\"'</span>) + <span class="hljs-string">'"'</span>;
+}
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

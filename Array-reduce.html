@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="array-reduce-js">Array#reduce.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce</span>
+<span class="hljs-comment">// Production steps of ECMA-262, Edition 5, 15.4.4.21</span>
+<span class="hljs-comment">// Reference: http://es5.github.io/#x15.4.4.21</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.prototype.reduce) {
+  <span class="hljs-built_in">Array</span>.prototype.reduce = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback <span class="hljs-comment">/*, initialValue*/</span></span>) </span>{
+<span class="hljs-pi">    'use strict'</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> == <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Array.prototype.reduce called on null or undefined'</span>);
+    }
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback !== <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(callback + <span class="hljs-string">' is not a function'</span>);
+    }
+    <span class="hljs-keyword">var</span> t = <span class="hljs-built_in">Object</span>(<span class="hljs-keyword">this</span>), len = t.length &gt;&gt;&gt; <span class="hljs-number">0</span>, k = <span class="hljs-number">0</span>, value;
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length == <span class="hljs-number">2</span>) {
+      value = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>];
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">while</span> (k &lt; len &amp;&amp; !(k <span class="hljs-keyword">in</span> t)) {
+        k++;
+      }
+      <span class="hljs-keyword">if</span> (k &gt;= len) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Reduce of empty array with no initial value'</span>);
+      }
+      value = t[k++];
+    }
+    <span class="hljs-keyword">for</span> (; k &lt; len; k++) {
+      <span class="hljs-keyword">if</span> (k <span class="hljs-keyword">in</span> t) {
+        value = callback(value, t[k], k, t);
+      }
+    }
+    <span class="hljs-keyword">return</span> value;
+  };
+}
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

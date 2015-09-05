@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="string-trim-js">String#trim.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5 15.5.4.20</span>
+<span class="hljs-comment">// http://es5.github.com/#x15.5.4.20</span>
+!<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> ws = <span class="hljs-string">"\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003"</span> +
+      <span class="hljs-string">"\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028"</span> +
+      <span class="hljs-string">"\u2029\uFEFF"</span>;
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">String</span>.prototype.trim || ws.trim()) {
+      <span class="hljs-comment">// http://blog.stevenlevithan.com/archives/faster-trim-javascript</span>
+      <span class="hljs-comment">// http://perfectionkills.com/whitespace-deviations/</span>
+      ws = <span class="hljs-string">"["</span> + ws + <span class="hljs-string">"]"</span>;
+      <span class="hljs-keyword">var</span> trimBeginRegexp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"^"</span> + ws + ws + <span class="hljs-string">"*"</span>),
+          trimEndRegexp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(ws + ws + <span class="hljs-string">"*$"</span>);
+      <span class="hljs-built_in">String</span>.prototype.trim = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">trim</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> || <span class="hljs-keyword">this</span> === <span class="hljs-literal">null</span>) {
+              <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"can't convert "</span>+<span class="hljs-keyword">this</span>+<span class="hljs-string">" to object"</span>);
+          }
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>(<span class="hljs-keyword">this</span>)
+              .replace(trimBeginRegexp, <span class="hljs-string">""</span>)
+              .replace(trimEndRegexp, <span class="hljs-string">""</span>);
+      };
+  }
+}();
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

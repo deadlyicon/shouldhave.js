@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="function-wrap-js">Function#wrap.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">// Function.wrap(object, 'property', wrapper) -&gt; Function</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// - @param {object}</span>
+<span class="hljs-comment">// - @param {string} [property]</span>
+<span class="hljs-comment">// - @param {function} [wrapper] A function to wrap the left function</span>
+<span class="hljs-comment">// - @return {function} [wrapped] A function that calls the given function</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// #### example</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// ```js</span>
+<span class="hljs-comment">// Function.wrap(object, 'property', function($super){</span>
+<span class="hljs-comment">//    return $super.apply(this, arguments);</span>
+<span class="hljs-comment">// })</span>
+<span class="hljs-comment">// ```</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// ### Note:</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// This is here instead of in `Function.wrap.js` because</span>
+<span class="hljs-comment">// you shouldn't have the instance method without</span>
+<span class="hljs-comment">// the class method. It would just be confusing.</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Function</span>.wrap){
+  <span class="hljs-built_in">Function</span>.wrap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, property, wrapper</span>)</span>{
+    <span class="hljs-keyword">var</span> func = object[property];
+    <span class="hljs-keyword">return</span> object[property] = func.wrap(wrapper);
+  };
+}
+
+<span class="hljs-comment">//  Function#wrap(wrapper) -&gt; Function</span>
+<span class="hljs-comment">//  - wrapper (Function): The function to use as a wrapper.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  Returns a function "wrapped" around the original function.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  [[Function#wrap]] distills the essence of aspect-oriented programming into</span>
+<span class="hljs-comment">//  a single method, letting you easily build on existing functions by</span>
+<span class="hljs-comment">//  specifying before and after behavior, transforming the return value, or</span>
+<span class="hljs-comment">//  even preventing the original function from being called.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  The wraper function is called with this signature:</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//      function wrapper(callOriginal[, args...])</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  ...where `callOriginal` is a function that can be used to call the</span>
+<span class="hljs-comment">//  original (wrapped) function (or not, as appropriate). (`callOriginal` is</span>
+<span class="hljs-comment">//  not a direct reference to the original function, there's a layer of</span>
+<span class="hljs-comment">//  indirection in-between that sets up the proper context \[`this` value\] for</span>
+<span class="hljs-comment">//  it.)</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  ##### Example</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// ```js</span>
+<span class="hljs-comment">//      // Wrap String#capitalize so it accepts an additional argument</span>
+<span class="hljs-comment">//      String.prototype.capitalize = String.prototype.capitalize.wrap(</span>
+<span class="hljs-comment">//        function(callOriginal, eachWord) {</span>
+<span class="hljs-comment">//          if (eachWord &amp;&amp; this.include(" ")) {</span>
+<span class="hljs-comment">//            // capitalize each word in the string</span>
+<span class="hljs-comment">//            return this.split(" ").invoke("capitalize").join(" ");</span>
+<span class="hljs-comment">//          } else {</span>
+<span class="hljs-comment">//            // proceed using the original function</span>
+<span class="hljs-comment">//            return callOriginal();</span>
+<span class="hljs-comment">//          }</span>
+<span class="hljs-comment">//        });</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//      "hello world".capitalize();</span>
+<span class="hljs-comment">//      // -&gt; "Hello world" (only the 'H' is capitalized)</span>
+<span class="hljs-comment">//      "hello world".capitalize(true);</span>
+<span class="hljs-comment">//      // -&gt; "Hello World" (both 'H' and 'W' are capitalized)</span>
+<span class="hljs-comment">// ```</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// ```js</span>
+<span class="hljs-comment">// (function(n){ return n + 10; }).wrap(function($super, n){</span>
+<span class="hljs-comment">//   return $super(n) - 5;</span>
+<span class="hljs-comment">// });</span>
+<span class="hljs-comment">// ```</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Function</span>.prototype.wrap){
+  <span class="hljs-built_in">Function</span>.prototype.wrap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">wrapper</span>)</span>{
+    <span class="hljs-keyword">var</span> func = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      <span class="hljs-keyword">var</span> args = [].slice.apply(<span class="hljs-built_in">arguments</span>)
+      args.unshift(func)
+      <span class="hljs-keyword">return</span> wrapper.apply(<span class="hljs-keyword">this</span>, args);
+    };
+  };
+}
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>shouldhave.js</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="description" content="Everything JavaScript should have :D"><link rel="stylesheet" href="/shouldhave.js/main.css"></head><body><div class="container-fluid"><nav class="navbar navbar-dark bg-inverse"><a href="/shouldhave.js" class="navbar-brand">shouldhave.js</a><ul class="nav navbar-nav"><li class="nav-item active"><a href="/shouldhave.js/about" class="nav-link">About<span class="sr-only">(current)</span></a></li><li class="nav-item"><a href="/shouldhave.js/docs" class="nav-link">Docs</a></li><li class="nav-item"><a href="https://github.com/deadlyicon/shouldhave.js" class="nav-link">Code</a></li></ul></nav><h1 id="string-underscore-js">String#underscore.js</h1>
+<pre><code class="lang-js"><span class="hljs-comment">/**
+ *  String#underscore() -&gt; String
+ *
+ *  Converts a camelized string into a series of words separated by an
+ *  underscore (`_`).
+ *
+ *  ##### Example
+ *
+ *      'borderBottomWidth'.underscore();
+ *      // -&gt; 'border_bottom_width'
+ *
+ *  ##### Note
+ *
+ *  Used in conjunction with [[String#dasherize]], [[String#underscore]]
+ *  converts a DOM style into its CSS equivalent.
+ *
+ *      'borderBottomWidth'.underscore().dasherize();
+ *      // -&gt; 'border-bottom-width'
+**/</span>
+<span class="hljs-built_in">String</span>.prototype.underscore = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+    .replace(<span class="hljs-regexp">/::/g</span>, <span class="hljs-string">'/'</span>)
+    .replace(<span class="hljs-regexp">/([A-Z]+)([A-Z][a-z])/g</span>, <span class="hljs-string">'$1_$2'</span>)
+    .replace(<span class="hljs-regexp">/([a-z\d])([A-Z])/g</span>, <span class="hljs-string">'$1_$2'</span>)
+    .replace(<span class="hljs-regexp">/-/g</span>, <span class="hljs-string">'_'</span>)
+    .toLowerCase();
+};
+
+</code></pre>
+<footer>THE FOOTER</footer></div><script src="/shouldhave.js/jquery.js"></script><script src="/shouldhave.js/bootstrap.js"></script></body></html>
