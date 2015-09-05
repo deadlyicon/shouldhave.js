@@ -94,12 +94,14 @@ var metalsmith = Metalsmith(ROOT)
 
   .use(function(files, metalsmith, done){
 
-    var loadSourceCode = function(fileName, done){
-      var sourceFileName = docFileNameToSrcFileName(fileName)
+    var loadSourceCode = function(docFileName, done){
+      var sourceFileName = docFileName.replace(/\.html$/,'.js').replace('-','#')
       if (!sourceFileName) return done();
-      var fileData = files[fileName];
-      loadSourceFile(sourceFileName, function(contents){
-        fileData.contents = fileData.contents.toString().replace('{{source}}', contents.toString())
+      var fileData = files[docFileName];
+      loadSourceFile(sourceFileName, function(error, contents){
+        if (!error){
+          fileData.contents = fileData.contents.toString().replace('{{source}}', contents.toString())
+        }
         done();
       });
     };
@@ -125,10 +127,7 @@ var build = function(){
 
 
 var loadSourceFile = function(fileName, callback){
-  fs.readFile(ROOT+'/src/'+fileName, function(error, source){
-    if (error) throw error;
-    callback(source)
-  });
+  fs.readFile(ROOT+'/src/'+fileName, callback)
 };
 
 fs.readdir(ROOT+'/src', function(error, fileNames){
