@@ -1,3 +1,20 @@
-nav.navbar.navbar-light.bg-faded
-  a.navbar-brand(href=pathRoot) Navbar
-  \
+nav.navbar.navbar-dark.bg-inverse
+  a.navbar-brand(href=pathRoot) shouldhave.js
+  ul.nav.navbar-nav
+    li.nav-item.active
+      a.nav-link(href=pathRoot+'/about')
+        = 'About'
+        span.sr-only (current)
+
+    li.nav-item
+      a.nav-link(href="#") Docs
+
+    li.nav-item
+      a.nav-link(href="#") Code
+
+
+  form.form-inline.navbar-form.pull-right
+    input.form-control(type="text" placeholder="Search")
+    button.btn.btn-success-outline(type="submit") Search
+
+
