@@ -2,22 +2,27 @@
 
 'use strict'
 
-require('../src/Object.assign')
+require('../Object.assign')
 
-var fs            = require('fs');
-var path          = require('path');
-var asyncEach     = require('async').each;
-var Metalsmith    = require('metalsmith');
-var markdown      = require('metalsmith-markdown');
-var sass          = require('metalsmith-sass');
-var codeHighlight = require('metalsmith-code-highlight');
-var jade          = require('metalsmith-jade')
-var compileJade   = require('jade').compile
+var fs              = require('fs');
+var path            = require('path');
+// var readPackageJson = require('read-package-json');
+var asyncEach       = require('async').each;
+var Metalsmith      = require('metalsmith');
+var markdown        = require('metalsmith-markdown');
+var sass            = require('metalsmith-sass');
+var codeHighlight   = require('metalsmith-code-highlight');
+var jade            = require('metalsmith-jade')
+var compileJade     = require('jade').compile
 
-var ROOT = process.cwd()
-if (ROOT.slice(-5) === '/docs'){
-  ROOT = ROOT.slice(0, -5);
-}
+var ROOT = path.resolve(__dirname,'..')
+
+
+
+var readPackageJson = function(callback){
+  require('read-package-json')(ROOT+'/package.json', console.error, false, callback);
+};
+
 
 /**
  * Build.
@@ -130,10 +135,28 @@ var loadSourceFile = function(fileName, callback){
   fs.readFile(ROOT+'/src/'+fileName, callback)
 };
 
-fs.readdir(ROOT+'/src', function(error, fileNames){
+readPackageJson(function(error, data){
   metaData.fileNames = fileNames;
   metaData.files = {};
   // asyncEach(fileNames, loadFileContent, build);
   build();
 });
+
+
+
+
+
+  if (error) throw error;
+
+  console.log(data.files)
+
+})
+
+
+
+
+
+
+
+
 
