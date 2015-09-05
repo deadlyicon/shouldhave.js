@@ -1,6 +1,6 @@
 {
   "name": "shouldhave",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "everything javascript should have",
   "main": "src/index.js",
   "scripts": {
