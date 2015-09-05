@@ -3,7 +3,7 @@ layout: _layout.jade
 ---
 
 
-# Array#find.js
+# Function#map.js
 
 
 ```js

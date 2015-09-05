@@ -20,20 +20,16 @@ generate = (name) ->
   ```
   """
 
-
-console.log generate('Array#find')
-
-
-
-console.log(ROOT);
-
 fs.readdir "#{ROOT}/src", (error, fileNames) ->
   throw error if error?
   fileNames.forEach (sourceFileName) ->
-    [p1,p2,p3] = fileName.match(/^(\w+)(#|\.)(\w+).js$/)
-    name = "#{p1}#{p2}#{p3}"
-    docFileName = "#{p1}#{if p2 == '#' then '-' else '.'}#{p3}.html"
-    fs.writeFile "#{ROOT}/docs/#{docFileName}", generate(name), (error) ->
+    # [p1,p2,p3] = sourceFileName.match(/^(\w+)(#|\.)(\w+).js$/)
+    # name = "#{p1}#{p2}#{p3}"
+    # docFileName = "#{p1}#{if p2 == '#' then '-' else '.'}#{p3}.html"
+
+    docFileName = sourceFileName.replace('#','-').replace(/\.js$/,'.md')
+    console.log("#{ROOT}/docs/#{docFileName}")
+    fs.writeFile "#{ROOT}/docs/#{docFileName}", generate(sourceFileName), (error) ->
       throw error if error?
 
 

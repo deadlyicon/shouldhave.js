@@ -1,0 +1,9 @@
+extends ../_layout.jade
+
+block content
+
+  h1 Docs! :D
+  for file in fileNames
+    - file = file.replace(/\.js$/,'')
+    div
+      a(href=pathRoot+'/'+file.replace('#','-')+'.html')=file
