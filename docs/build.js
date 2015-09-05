@@ -15,6 +15,9 @@ var jade          = require('metalsmith-jade')
 var compileJade   = require('jade').compile
 
 var ROOT = process.cwd()
+if (ROOT.slice(-5) === '/docs'){
+  ROOT = ROOT.slice(0, -5);
+}
 
 /**
  * Build.
@@ -26,6 +29,7 @@ var jadeOptions = {
 
 var jadeLocals = {
   pathRoot: '/shouldhave.js',
+  githubUrl: 'https://github.com/deadlyicon/shouldhave.js',
   files: [] // set near bottom of this file
 };
 

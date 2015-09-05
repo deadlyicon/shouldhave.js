@@ -10,11 +10,10 @@ html(lang="en")
   body
     .container-fluid
       include _header.jade
-      .row
-        .col-md-2= 'the sidbarrrrrrrr'
-        .col-md-10
-          block content
-          != contents
+      if contents
+        != contents
+      else
+        block content
       include _footer.jade
     script(src=pathRoot+"/jquery.js")
     script(src=pathRoot+"/bootstrap.js")
