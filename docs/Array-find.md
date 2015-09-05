@@ -13,3 +13,7 @@ user2 = users.find(function(user){
   return if user.id == 2;
 });
 ```
+
+```js
+{{source}}
+```

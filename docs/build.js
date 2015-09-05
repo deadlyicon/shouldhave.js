@@ -27,10 +27,13 @@ var jadeOptions = {
   pretty: false
 }
 
-var jadeLocals = {
-  pathRoot: '/shouldhave.js',
-  githubUrl: 'https://github.com/deadlyicon/shouldhave.js',
-  files: [] // set near bottom of this file
+var metaData = {
+  title:       "shouldhave.js",
+  description: "Everything JavaScript should have :D",
+  pathRoot:    '/shouldhave.js',
+  githubUrl:   'https://github.com/deadlyicon/shouldhave.js',
+  // fileNames: ['']
+  // files: [{}]
 };
 
 var layout = function(files, metalsmith, done){
@@ -40,7 +43,7 @@ var layout = function(files, metalsmith, done){
     var layout = data.layout;
     if (!layout) return done();
     layout = path.join(metalsmith.source(), layout)
-    var locals = Object.assign({}, jadeLocals, data);
+    var locals = Object.assign({}, metaData, data);
     delete locals.layout
     delete locals.stats
     locals.contents = data.contents.toString()
@@ -59,17 +62,23 @@ var layout = function(files, metalsmith, done){
   asyncEach(Object.keys(files), wrapInLayout, done);
 };
 
+
+var docFileNameToSrcFileName = function(docFileName){
+  var matches = docFileName.match(/^(\w+)(-|\.)(\w+).html$/);
+  return matches && matches[1]+(matches[2]==='-'?'#':'.')+matches[3]+'.js';
+}
+
+
+
 var metalsmith = Metalsmith(ROOT)
   .source('./docs')
   .destination('./gh-pages')
   .clean(false)
-  .metadata({
-    "title": "shouldhave.js",
-    "description": "Everything JavaScript should have :D"
-  })
+  .metadata(metaData)
   .ignore([
     "build.js",
     "_bootstrap",
+    ".*",
     "_*",
     "_*.*",
     "_*.sass",
@@ -79,9 +88,23 @@ var metalsmith = Metalsmith(ROOT)
     "outputStyle": "expanded"
   }))
   .use(jade(
-    Object.assign({}, jadeOptions, {locals: jadeLocals})
+    Object.assign({}, jadeOptions, {locals: metaData})
   ))
   .use(markdown())
+
+  .use(function(files, metalsmith, done){
+    // console.log('-->', Object.keys(files));
+    var matchingFiles = [];
+    Object.keys(files).forEach(function(fileName){
+      console.log(fileName);
+
+      var sourceFileName = docFileNameToSrcFileName(fileName)
+      if (!sourceFileName) return;
+      console.log(sourceFileName)
+      // return metaData.fileNames.indexOf(fileName) != -1;
+    });
+    done()
+  })
   .use(layout)
   .use(codeHighlight())
   .use(sass({
@@ -98,8 +121,19 @@ var build = function(){
 };
 
 
-fs.readdir(ROOT+'/src', function(error, files){
-  jadeLocals.files = files
-  build()
+
+var loadFileContent = function(fileName, done){
+  var file = {name: fileName};
+  metaData.files[fileName] = file;
+  fs.readFile(ROOT+'/src/'+fileName, function(error, contents){
+    file.contents = contents;
+    done();
+  });
+};
+
+fs.readdir(ROOT+'/src', function(error, fileNames){
+  metaData.fileNames = fileNames;
+  metaData.files = {};
+  asyncEach(fileNames, loadFileContent, build);
 });
 
