@@ -13,15 +13,7 @@ generate = (niceName, sourceFileName) ->
 
   # #{niceName}
 
-  ## Instillation
-
-  ```sh
-  npm install --save shouldhave
-  ```
-
-  ```js
-  require("shouldhave/#{sourceFileName}")
-  ```
+  ## Source
 
   ```js
   {{source}}
