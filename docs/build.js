@@ -65,6 +65,8 @@ var metalsmith = Metalsmith(ROOT)
   })
   .ignore([
     "build.js",
+    "_bootstrap",
+    "_*",
     "_*.*",
     "_*.sass",
     "_*.jade"
