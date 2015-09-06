@@ -48,6 +48,7 @@
     "Array#remove.js",
     "Array#select.js",
     "Array#unique.js",
+    "Array#without.js",
     "Array.isArray.js",
     "Array.wrap.js",
     "Function#defer.js",
